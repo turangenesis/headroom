@@ -58,7 +58,12 @@ def review_action(
         source=decision.source.value,
     )
 
-    result = {"verdict": verdict, "reason": decision.reason, "action_id": action.id}
+    result = {
+        "verdict": verdict,
+        "reason": decision.reason,
+        "action_id": action.id,
+        "source": decision.source.value,  # rule | llm | fail_safe — who decided
+    }
     if verdict == "APPROVAL_REQUIRED":
         db.add_pending(
             AUDIT_DB,
